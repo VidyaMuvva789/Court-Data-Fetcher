@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Delhi High Court Case Search</h2>
+
+{% if error %}
+  <div class="error">{{ error }}</div>
+{% endif %}
+
+<div class="form-container">
+  <form method="post" action="{% url 'search_case' %}">
+    {% csrf_token %}
+    {{ form.case_type }}
+    {{ form.case_number }}
+    {{ form.filing_year }}
+    <button type="submit">Search</button>
+  </form>
+</div>
+
+{% if data %}
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 7%;">S.No.</th>
+          <th style="width: 28%;">Diary No. / Case No. [STATUS]</th>
+          <th style="width: 40%;">Petitioner Vs. Respondent</th>
+          <th style="width: 25%;">Listing Date / Court No.</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for case in data.data %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            {{ case.ctype|safe }}<br>
+            {% if case.orderlink %}
+              <a href="{{ case.orderlink }}" style="color:blue; text-decoration: underline;" target="_blank" rel="noopener">
+                <strong>Orders</strong>
+              </a>
+            {% endif %}
+          </td>
+          <td>
+            {{ case.pet|default_if_none:""|safe }}
+            {% if "VS." not in case.pet and "VS." not in case.resp %}
+              <br>VS.<br>
+            {% else %}
+              <br>
+            {% endif %}
+            {{ case.resp|default_if_none:""|safe }}
+          </td>
+          <td>
+            {{ case.orderdate|default_if_none:""|safe }}<br>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No results found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
+{% endblock %}
