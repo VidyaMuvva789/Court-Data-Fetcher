@@ -147,7 +147,7 @@ CASE_TYPES = [
     ('WTR', 'WTR'),
 ]
 
-YEARS = [('', 'Select Year')] + [(str(y), str(y)) for y in range(1995, 2026)]
+YEARS = [('', 'Filing Year')] + [(str(y), str(y)) for y in range(1995, 2026)]
 
 class CaseSearchForm(forms.Form):
     case_type = forms.ChoiceField(
@@ -168,4 +168,3 @@ class CaseSearchForm(forms.Form):
             'style': 'width:220px; padding:6px; font-size:14px;'
         })
     )
-
