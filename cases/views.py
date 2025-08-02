@@ -2,6 +2,8 @@
 from django.shortcuts import render
 from .forms import CaseSearchForm
 from .scraper import fetch_case_details
+import json
+from .models import CaseQuery
 
 def search_case(request):
     data = None
@@ -14,6 +16,12 @@ def search_case(request):
             fy = form.cleaned_data['filing_year']
             try:
                 data = fetch_case_details(ct, cn, fy)
+                CaseQuery.objects.create(
+                case_type=ct,
+                case_number=cn,
+                filing_year=fy,
+                raw_json=json.dumps(data)
+                )
             except Exception as e:
                 error = str(e)
     else:
