@@ -1,7 +1,7 @@
 from django import forms
 
 CASE_TYPES = [
-    (' ', "Case Type"),
+    ('', "Case Type"),
     ('ADMIN.REPORT', 'ADMIN.REPORT'),
     ('ARB.A.', 'ARB.A.'),
     ('ARB. A. (COMM.)', 'ARB. A. (COMM.)'),
@@ -147,6 +147,7 @@ CASE_TYPES = [
     ('WTR', 'WTR'),
 ]
 
+YEARS = [('', 'Select Year')] + [(str(y), str(y)) for y in range(1995, 2026)]
 
 class CaseSearchForm(forms.Form):
     case_type = forms.ChoiceField(
@@ -161,9 +162,10 @@ class CaseSearchForm(forms.Form):
             'style': 'width:220px; padding:6px; font-size:14px;'
         })
     )
-    filing_year = forms.CharField(
-        widget=forms.TextInput(attrs={
-            'placeholder': 'Enter Filing Year',
+    filing_year = forms.ChoiceField(
+        choices=YEARS,
+        widget=forms.Select(attrs={
             'style': 'width:220px; padding:6px; font-size:14px;'
         })
     )
+
