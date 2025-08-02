@@ -152,11 +152,13 @@ YEARS = [('', 'Filing Year')] + [(str(y), str(y)) for y in range(1995, 2026)]
 class CaseSearchForm(forms.Form):
     case_type = forms.ChoiceField(
         choices=CASE_TYPES,
+        required=True,
         widget=forms.Select(attrs={
             'style': 'width:220px; padding:6px; font-size:14px;'
         })
     )
     case_number = forms.CharField(
+        required=True,
         widget=forms.TextInput(attrs={
             'placeholder': 'Enter Case Number',
             'style': 'width:220px; padding:6px; font-size:14px;'
@@ -164,6 +166,7 @@ class CaseSearchForm(forms.Form):
     )
     filing_year = forms.ChoiceField(
         choices=YEARS,
+        required=True,
         widget=forms.Select(attrs={
             'style': 'width:220px; padding:6px; font-size:14px;'
         })
