@@ -20,8 +20,6 @@ def fetch_case_details(case_type, case_number, case_year):
     if not captcha_value or not hidden_value:
         raise ValueError("Could not retrieve captcha from Delhi HC website.")
 
-    print(f"[DEBUG] Captcha fetched: {captcha_value}, Hidden randomid: {hidden_value}")
-
     url = "https://delhihighcourt.nic.in/app/get-case-type-status"
 
     params = {
