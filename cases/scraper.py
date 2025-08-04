@@ -1,8 +1,29 @@
 import requests
 import re
+from bs4 import BeautifulSoup
 
 def fetch_case_details(case_type, case_number, case_year):
+    session = requests.Session()
+
+    search_page_url = "https://delhihighcourt.nic.in/app/get-case-type-status"  
+    search_page = session.get(search_page_url, headers={"User-Agent": "Mozilla/5.0"})
+    search_page.raise_for_status()
+
+    soup = BeautifulSoup(search_page.text, "html.parser")
+
+    captcha_span = soup.find("span", id="captcha-code")
+    captcha_value = captcha_span.text.strip() if captcha_span else None
+
+    hidden_input = soup.find("input", {"name": "randomid"})
+    hidden_value = hidden_input["value"].strip() if hidden_input else None
+
+    if not captcha_value or not hidden_value:
+        raise ValueError("Could not retrieve captcha from Delhi HC website.")
+
+    print(f"[DEBUG] Captcha fetched: {captcha_value}, Hidden randomid: {hidden_value}")
+
     url = "https://delhihighcourt.nic.in/app/get-case-type-status"
+
     params = {
         "draw": 1,
         "columns[0][data]": "DT_RowIndex",
@@ -44,6 +65,9 @@ def fetch_case_details(case_type, case_number, case_year):
         "case_type": case_type,
         "case_number": case_number,
         "case_year": case_year,
+
+        "captcha": captcha_value,
+        "randomid": hidden_value
     }
 
     headers = {
@@ -52,7 +76,7 @@ def fetch_case_details(case_type, case_number, case_year):
         "X-Requested-With": "XMLHttpRequest",
     }
 
-    response = requests.get(url, params=params, headers=headers)
+    response = session.get(url, params=params, headers=headers)
     response.raise_for_status()
     data = response.json()
 
@@ -74,6 +98,3 @@ def fetch_case_details(case_type, case_number, case_year):
         case['orderlink'] = orderlink
 
     return data
-
-
-
