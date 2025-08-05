@@ -29,7 +29,7 @@ To perform a search, the user must provide:
 - **Filing Year** → Year when the case was filed
   <img width="842" height="267" alt="Image" src="https://github.com/user-attachments/assets/2284cd2d-656a-4c92-879c-a79191ccc5be" />
 
-- ---
+---
 
 ## How It Works
 
@@ -65,3 +65,19 @@ To perform a search, the user must provide:
 - Clicking the **Orders** link opens a page listing all related PDF order files.
 - Clicking on View Order Details opens pdf directly in the browser tab.
   <img width="697" height="370" alt="Image" src="https://github.com/user-attachments/assets/fb903629-fc2a-42fa-9e65-233c6d8b9a61" />
+
+---
+
+## Installation & Setup
+
+1. **Clone the repository:** git clone https://github.com/VidyaMuvva789/Court-Data-Fetcher.git
+  
+2. **Create a virtual environment:** python -m venv env
+  
+3. **After creating virtual environment activate it using the command:** env/Scripts/activate
+  
+4. **After activating virtual environment install dependencies:** pip install django requests beautifulsoup4
+
+5. **Make migrations:** python manage.py migrate
+
+6. **Start the server:** python manage.py runserver
