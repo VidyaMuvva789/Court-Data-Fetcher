@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #f9f9f9; 
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 45%; 
+            background: white;
+        }
+        th, td { 
+            border: 1px solid #ccc; 
+            padding: 8px; 
+            text-align: center;
+        }
+        th { 
+          background: #eee; 
+        }
+        a { 
+            color: blue; 
+            text-decoration: none; 
+        }
+        h2{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Orders</h2>
+    {% if orders %}
+        <center>
+        <table>
+            <tr>
+                <th>Case No / Order Link</th>
+                <th>Date of Order</th>
+            </tr>
+            {% for order in orders %}
+            <tr>
+                <td>
+                    <a href="{{ order.pdf }}" target="_blank">
+                        View order details
+                    </a>
+                </td>
+                <td>{{ order.date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        </center>
+    {% else %}
+        <p>No orders found.</p>
+    {% endif %}
+</body>
+</html>
