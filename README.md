@@ -50,7 +50,7 @@ To perform a search, the user must provide:
 - Parameters sent:
  `case_type` `case_number` `filing_year` `captcha` `randomid`
 - The site responds with JSON containing:
-  Case number and status, Petitioner and respondent names, Listing dates / courtno embedded HTML for case/order links.
+  Case number and status, Petitioner and respondent names, Listing dates / Court No embedded HTML for case/order links.
   <img width="962" height="373" alt="Image" src="https://github.com/user-attachments/assets/38606a5d-6277-42e9-904b-a91a1cd58ca9" />
 - If given data is incorrect then UI returns No results found.
   <img width="954" height="314" alt="Image" src="https://github.com/user-attachments/assets/f04d4c97-2698-4b4f-bae2-bdbc2d88cc8d" />
